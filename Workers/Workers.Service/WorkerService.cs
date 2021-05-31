@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Workers.Entity;
-using Workers.Repository;
+using Workers.DataAccess.Entity;
+using Workers.DataAccess.Repository;
 
 namespace Workers.Service
 {
@@ -15,9 +14,14 @@ namespace Workers.Service
             _worderRepository = worderRepository;
         }
 
-        public IEnumerable<Worker> GetWorker()
+        public IEnumerable<Worker> GetAllWorkers()
         {
             return _worderRepository.GetAllWorkers();
+        }
+
+        public Worker GetWorkerById(int id)
+        {
+            return _worderRepository.GetWorker(id);
         }
 
         public void AddWorker(Worker worker)
@@ -37,11 +41,20 @@ namespace Workers.Service
         {
             try
             {
-                var currentWorker = _worderRepository.GetWorker(worker.Id);
+                _worderRepository.UpdateWorker(worker);
+            }
+            catch (Exception ex)
+            {
+                // write some log
+                // return information
+            }
+        }
 
-                currentWorker.Name = worker.Name;
-                ///
-                _worderRepository.UpdateWorker(currentWorker);
+        public void DeleteWorker(int id)
+        {
+            try
+            {
+                _worderRepository.DeleteWorker(id);
             }
             catch (Exception ex)
             {

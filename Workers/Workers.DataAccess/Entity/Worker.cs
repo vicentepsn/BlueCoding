@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Workers.Entity
+namespace Workers.DataAccess.Entity
 {
     public class Worker
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string LaseName { get; set; }
+        public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public int Age { get { throw new NotImplementedException(); } }
         public DateTime StartWorkingAt { get; set; }
         public double Salary { get; set; }
+
+        public Worker Clone()
+        {
+            return (Worker)this.MemberwiseClone();
+        }
     }
 }
